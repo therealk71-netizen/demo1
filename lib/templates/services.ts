@@ -1,5 +1,5 @@
 import { siteConfig as c } from '@/site-config'
-import { brandColorStyle, businessJsonLd, clientConfigScript, esc as e, formatCount } from '@/lib/site-html'
+import { brandColorStyle, businessJsonLd, clientConfigScript, esc as e, faviconLinks, formatCount, logoMarkup } from '@/lib/site-html'
 
 export function renderServicesPage(): string {
   return `<!DOCTYPE html>
@@ -18,7 +18,7 @@ export function renderServicesPage(): string {
 
 ${brandColorStyle()}
 <link rel="stylesheet" href="style.css" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d6efd%27/%3E%3C/svg%3E" />
+${faviconLinks()}
 <script type="application/ld+json">
 ${businessJsonLd()}
 </script>
@@ -36,7 +36,7 @@ ${businessJsonLd()}
 <header class="header" id="header">
   <div class="header__inner">
     <a class="logo" href="/" aria-label="Home">
-        <span class="logo__slot" aria-hidden="true"></span>
+        ${logoMarkup()}
       </a>
 
     <nav class="nav" aria-label="Main">
@@ -191,7 +191,7 @@ ${businessJsonLd()}
   <div class="wrap footer__grid">
     <div>
       <a class="logo logo--footer" href="/" aria-label="Home">
-        <span class="logo__slot logo__slot--footer" aria-hidden="true"></span>
+        ${logoMarkup()}
       </a>
       <p class="footer__blurb">Family-owned heating and cooling service for Southern Nevada since ${c.yearFounded}. Nevada license #${e(c.licenseNumber)} · EPA 608 Universal.</p>
     </div>

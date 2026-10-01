@@ -200,6 +200,8 @@ a, button, input, [role="button"] {
 .logo__type span { color: var(--color-primary); }
 .logo__slot { display: block; width: 140px; height: 34px; border: 1.5px dashed currentColor; border-radius: 8px; opacity: .45; }
 .logo__slot--footer { height: 30px; }
+.logo__img { display: block; width: auto; }
+.logo__wordmark { font-family: var(--font-display); font-weight: 800; font-size: 1.15rem; letter-spacing: -.03em; color: currentColor; }
 .nav { display: flex; gap: var(--space-6); margin-left: auto; }
 .nav a { font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted); text-decoration: none; }
 .nav a:hover { color: var(--color-text); }

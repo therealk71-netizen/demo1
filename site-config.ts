@@ -91,6 +91,17 @@ export const siteConfig = {
 
   primaryCTA: 'Call 24/7',
 
+  // If the logo file is missing, the header and footer fall back to a
+  // businessName wordmark in the primary color.
+  logo: {
+    src: '/logo.png',
+    alt: `${businessName} logo`,
+    height: 48,
+  },
+  favicon: '/favicon.png',
+  formEndpoint: 'https://formspree.io/f/mwlpjaye',
+  siteUrl: 'https://goldin-hvac1.pages.dev',
+
   // Every shade on the site (hovers, tints, borders, dark mode) is derived
   // from these values, so editing a hex here recolors the whole site.
   colors: {
