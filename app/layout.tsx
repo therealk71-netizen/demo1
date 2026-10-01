@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { siteConfig } from '@/site-config'
+import { brandColorCss } from '@/lib/site-html'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -46,6 +47,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <style id="site-colors" dangerouslySetInnerHTML={{ __html: brandColorCss() }} />
+      </head>
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

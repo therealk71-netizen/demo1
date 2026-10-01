@@ -60,6 +60,21 @@ export function clientConfigScript(): string {
   return `<script>window.siteConfig=${inlineJson(siteConfig)};</script>`
 }
 
+export function brandColorCss(): string {
+  const declarations = Object.entries(siteConfig.colors)
+    .map(([name, value]) => {
+      const prop = name.replace(/[A-Z]/g, (ch) => `-${ch.toLowerCase()}`)
+      const safeValue = String(value).replace(/[^#a-zA-Z0-9(),.%\s-]/g, '')
+      return `--brand-${prop}:${safeValue};`
+    })
+    .join('')
+  return `:root{${declarations}}`
+}
+
+export function brandColorStyle(): string {
+  return `<style id="site-colors">${brandColorCss()}</style>`
+}
+
 export function htmlResponse(html: string): Response {
   return new Response(html, {
     headers: { 'Content-Type': 'text/html; charset=utf-8' },

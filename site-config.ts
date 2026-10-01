@@ -91,6 +91,19 @@ export const siteConfig = {
 
   primaryCTA: 'Call 24/7',
 
+  // Every shade on the site (hovers, tints, borders, dark mode) is derived
+  // from these values, so editing a hex here recolors the whole site.
+  colors: {
+    primary: '#0b5fd0',
+    primaryDark: '#094ba5',
+    secondary: '#0b1b2b',
+    accent: '#c2410c',
+    background: '#f8fafc',
+    surface: '#ffffff',
+    textPrimary: '#0d1b2a',
+    textMuted: '#536377',
+  },
+
   seo: {
     title: `${businessName} — ${tagline} in ${city}`,
     description: `${businessName} dispatches licensed technicians across ${city} and Henderson 24/7. Average 47-minute arrival, flat-rate pricing, no overtime fees. Call ${emergencyPhone.display}.`,

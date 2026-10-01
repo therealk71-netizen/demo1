@@ -1,5 +1,5 @@
 import { siteConfig as c } from '@/site-config'
-import { businessJsonLd, clientConfigScript, esc as e, formatCount } from '@/lib/site-html'
+import { brandColorStyle, businessJsonLd, clientConfigScript, esc as e, formatCount } from '@/lib/site-html'
 
 export function renderHomePage(): string {
   return `<!DOCTYPE html>
@@ -12,10 +12,11 @@ export function renderHomePage(): string {
 <meta property="og:title" content="${e(c.seo.title)}" />
 <meta property="og:description" content="${e(c.seo.ogDescription)}" />
 <meta property="og:image" content="${e(c.seo.ogImage)}" />
-<meta name="theme-color" content="#0b1b2b" />
+<meta name="theme-color" content="${e(c.colors.secondary)}" />
 <link rel="preconnect" href="https://api.fontshare.com" />
 <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/hero-tools.jpg" />
+${brandColorStyle()}
 <link rel="stylesheet" href="style.css" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d6efd%27/%3E%3C/svg%3E" />
 <script type="application/ld+json">
