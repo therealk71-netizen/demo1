@@ -1,21 +1,26 @@
-<!DOCTYPE html>
+import { siteConfig as c } from '@/site-config'
+import { brandColorStyle, businessJsonLd, clientConfigScript, esc as e, formatCount } from '@/lib/site-html'
+
+export function renderHomePage(): string {
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Super HVAC — 24/7 Emergency AC &amp; Heating Repair in Las Vegas</title>
-<meta name="description" content="Super HVAC dispatches licensed technicians across Las Vegas and Henderson 24/7. Average 47-minute arrival, flat-rate pricing, no overtime fees. Call (702) 555-0142." />
-<meta property="og:title" content="Super HVAC — 24/7 Emergency AC &amp; Heating Repair in Las Vegas" />
-<meta property="og:description" content="Licensed, EPA-certified technicians on call around the clock. Average 47-minute arrival across the Las Vegas valley." />
-<meta property="og:image" content="assets/hero-tools.jpg" />
-<meta name="theme-color" content="#0b1b2b" />
+<title>${e(c.seo.title)}</title>
+<meta name="description" content="${e(c.seo.description)}" />
+<meta property="og:title" content="${e(c.seo.title)}" />
+<meta property="og:description" content="${e(c.seo.ogDescription)}" />
+<meta property="og:image" content="${e(c.seo.ogImage)}" />
+<meta name="theme-color" content="${e(c.colors.secondary)}" />
 <link rel="preconnect" href="https://api.fontshare.com" />
 <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/hero-tools.jpg" />
+${brandColorStyle()}
 <link rel="stylesheet" href="style.css" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230d6efd%27/%3E%3C/svg%3E" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"HVACBusiness","name":"Super HVAC","telephone":"+17025550142","email":"dispatch@superhvac.com","areaServed":["Las Vegas","Henderson","North Las Vegas","Summerlin","Enterprise","Paradise"],"address":{"@type":"PostalAddress","streetAddress":"4120 W Sunset Rd, Suite 12","addressLocality":"Las Vegas","addressRegion":"NV","postalCode":"89118","addressCountry":"US"},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"1842"}}
+${businessJsonLd()}
 </script>
 </head>
 <body>
@@ -25,7 +30,7 @@
 <div class="alertbar" role="status">
   <span class="pulse" aria-hidden="true"></span>
   <p><strong>Dispatch is live right now.</strong> <span class="alertbar__sub">6 technicians on the road in the valley · average arrival 47 min</span></p>
-  <a href="tel:+17025550142">(702) 555-0142</a>
+  <a href="tel:${e(c.emergencyPhone.raw)}">${e(c.emergencyPhone.display)}</a>
 </div>
 
 <header class="header" id="header">
@@ -44,9 +49,9 @@
 
     <div class="header__actions">
       <button class="iconbtn" data-theme-toggle aria-label="Switch to dark mode"></button>
-      <a class="btn btn--primary btn--sm" href="tel:+17025550142">
+      <a class="btn btn--primary btn--sm" href="tel:${e(c.emergencyPhone.raw)}">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-        Call 24/7
+        ${e(c.primaryCTA)}
       </a>
       <button class="iconbtn iconbtn--menu" id="menuBtn" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -69,17 +74,17 @@
     <div class="hero__scrim" aria-hidden="true"></div>
 
     <div class="hero__content">
-      <p class="eyebrow eyebrow--light">Las Vegas · Henderson · North Las Vegas</p>
+      <p class="eyebrow eyebrow--light">${c.serviceAreas.slice(0, 3).map(e).join(' · ')}</p>
       <h1>No cool air?<br /><em>We're already rolling.</em></h1>
-      <p class="hero__lede">Super HVAC keeps licensed technicians staged across the valley 24 hours a day. Call and a real dispatcher — not a call center — puts a van on your street in about 47 minutes.</p>
+      <p class="hero__lede">${e(c.businessName)} keeps licensed technicians staged across the valley 24 hours a day. Call and a real dispatcher — not a call center — puts a van on your street in about 47 minutes.</p>
       <div class="hero__cta">
-        <a class="btn btn--primary btn--lg" href="tel:+17025550142">Call (702) 555-0142</a>
+        <a class="btn btn--primary btn--lg" href="tel:${e(c.emergencyPhone.raw)}">Call ${e(c.emergencyPhone.display)}</a>
         <a class="btn btn--ghost btn--lg" href="#triage">Diagnose my system</a>
       </div>
       <ul class="trustrow" role="list">
-        <li><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> NV license #0089421</li>
+        <li><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> ${e(c.state)} license #${e(c.licenseNumber)}</li>
         <li><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> EPA 608 certified crews</li>
-        <li><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> 4.9 / 5 from 1,842 neighbors</li>
+        <li><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> ${c.averageRating} / 5 from ${formatCount(c.reviewCount)} neighbors</li>
         <li><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Zero overtime surcharge</li>
       </ul>
     </div>
@@ -90,7 +95,7 @@
     <div class="wrap stats__grid">
       <div class="stat"><span class="stat__num" data-count="47" data-suffix=" min">47 min</span><span class="stat__label">Average arrival time, valley-wide</span></div>
       <div class="stat"><span class="stat__num" data-count="24" data-suffix="/7">24/7</span><span class="stat__label">Live dispatch, holidays included</span></div>
-      <div class="stat"><span class="stat__num" data-count="18" data-suffix=" yrs">18 yrs</span><span class="stat__label">Serving Southern Nevada homes</span></div>
+      <div class="stat"><span class="stat__num" data-count="${c.yearsInBusiness}" data-suffix=" yrs">${c.yearsInBusiness} yrs</span><span class="stat__label">Serving Southern Nevada homes</span></div>
       <div class="stat"><span class="stat__num" data-count="94" data-suffix="%">94%</span><span class="stat__label">Repairs finished on the first visit</span></div>
     </div>
   </section>
@@ -138,7 +143,7 @@
             <div><dt>Efficiency loss</dt><dd id="calcLoss">18%</dd></div>
             <div><dt>Recommended step</dt><dd id="calcStep">21-point tune-up</dd></div>
           </dl>
-          <a class="btn btn--primary btn--full" href="tel:+17025550142">Book that visit</a>
+          <a class="btn btn--primary btn--full" href="tel:${e(c.phone.raw)}">Book that visit</a>
         </div>
       </div>
     </div>
@@ -196,11 +201,11 @@
         <div class="triage__panel" id="triagePanel" role="tabpanel" aria-live="polite">
           <div class="triage__urgency"><span class="dot" data-level="high"></span><span id="tUrgency">Urgent — same-day visit</span></div>
           <h3 id="tTitle">Low refrigerant or a failed compressor</h3>
-          <p id="tBody">Warm air with a running fan almost always means the outdoor unit isn't removing heat. In Las Vegas the usual culprits are a leaking refrigerant line, a burnt run capacitor, or a seized compressor.</p>
+          <p id="tBody">Warm air with a running fan almost always means the outdoor unit isn't removing heat. In ${e(c.city)} the usual culprits are a leaking refrigerant line, a burnt run capacitor, or a seized compressor.</p>
           <ul class="triage__list" id="tSteps" role="list"></ul>
           <div class="triage__foot">
             <div><span class="triage__pricelabel">Typical visit</span><span class="triage__price" id="tPrice">$189 – $460</span></div>
-            <a class="btn btn--primary" href="tel:+17025550142">Get a tech dispatched</a>
+            <a class="btn btn--primary" href="tel:${e(c.emergencyPhone.raw)}">Get a tech dispatched</a>
           </div>
         </div>
       </div>
@@ -259,19 +264,19 @@
   <section class="section section--offset" id="why">
     <div class="wrap split">
       <figure class="split__img">
-        <img src="assets/technician.jpg" alt="Super HVAC technician checking refrigerant pressure on a residential condenser unit" width="1400" height="933" loading="lazy" />
+        <img src="assets/technician.jpg" alt="${e(c.businessName)} technician checking refrigerant pressure on a residential condenser unit" width="1400" height="933" loading="lazy" />
         <figcaption>Every tech is badged, background-checked, and drug-tested.</figcaption>
       </figure>
       <div class="split__body">
         <p class="eyebrow">Why neighbors call us first</p>
         <h2>A repair company that behaves like a neighbor</h2>
         <ol class="steps" role="list">
-          <li><span>1</span><div><strong>You talk to a dispatcher in Las Vegas.</strong> No phone tree, no offshore answering service. Average pickup: 11 seconds.</div></li>
+          <li><span>1</span><div><strong>You talk to a dispatcher in ${e(c.city)}.</strong> No phone tree, no offshore answering service. Average pickup: 11 seconds.</div></li>
           <li><span>2</span><div><strong>You get a name, photo, and live ETA.</strong> Text link tracks the van from our yard to your driveway.</div></li>
           <li><span>3</span><div><strong>You approve a flat price first.</strong> Diagnosis, options, and cost on one page before a single tool comes out.</div></li>
           <li><span>4</span><div><strong>You keep the report.</strong> Photos, readings, and part numbers emailed the same day — yours to keep even for a second opinion.</div></li>
         </ol>
-        <a class="btn btn--primary" href="tel:+17025550142">Talk to dispatch now</a>
+        <a class="btn btn--primary" href="tel:${e(c.emergencyPhone.raw)}">Talk to dispatch now</a>
       </div>
     </div>
   </section>
@@ -281,7 +286,7 @@
   <section class="section section--offset" id="reviews">
     <div class="wrap">
       <div class="section__head">
-        <p class="eyebrow">4.9 average · 1,842 reviews</p>
+        <p class="eyebrow">${c.averageRating} average · ${formatCount(c.reviewCount)} reviews</p>
         <h2>What the valley says</h2>
       </div>
 
@@ -294,7 +299,7 @@
           </figure>
           <figure class="review">
             <div class="review__stars" aria-label="5 out of 5">★★★★★</div>
-            <blockquote>Two other companies told me I needed a full replacement. Super HVAC found a clogged condensate line and a dirty coil, cleaned both, and my upstairs finally cools. They talked me out of a $9,000 purchase. That is who I call forever.</blockquote>
+            <blockquote>Two other companies told me I needed a full replacement. ${e(c.businessName)} found a clogged condensate line and a dirty coil, cleaned both, and my upstairs finally cools. They talked me out of a $9,000 purchase. That is who I call forever.</blockquote>
             <figcaption><strong>Ray M.</strong><span>Henderson · Diagnostic</span></figcaption>
           </figure>
           <figure class="review">
@@ -318,7 +323,7 @@
       <div class="areas">
         <p class="areas__label">Trucks staged in</p>
         <ul role="list">
-          <li>Las Vegas</li><li>Henderson</li><li>North Las Vegas</li><li>Summerlin</li><li>Enterprise</li><li>Paradise</li><li>Spring Valley</li><li>Green Valley</li><li>Boulder City</li>
+          ${c.serviceAreas.map((area) => `<li>${e(area)}</li>`).join('')}
         </ul>
       </div>
     </div>
@@ -370,11 +375,11 @@
     <div class="wrap finalcta__inner">
       <div>
         <h2>It is hot. Let's fix it tonight.</h2>
-        <p>One call reaches a Las Vegas dispatcher who can see exactly which van is closest to you.</p>
+        <p>One call reaches a ${e(c.city)} dispatcher who can see exactly which van is closest to you.</p>
       </div>
       <div class="finalcta__actions">
-        <a class="btn btn--light btn--lg" href="tel:+17025550142">(702) 555-0142</a>
-        <a class="btn btn--ghost btn--lg" href="mailto:dispatch@superhvac.com">Email dispatch</a>
+        <a class="btn btn--light btn--lg" href="tel:${e(c.emergencyPhone.raw)}">${e(c.emergencyPhone.display)}</a>
+        <a class="btn btn--ghost btn--lg" href="mailto:${e(c.email)}">Email dispatch</a>
       </div>
     </div>
   </section>
@@ -386,21 +391,21 @@
       <a class="logo logo--footer" href="#top" aria-label="Home">
         <span class="logo__slot logo__slot--footer" aria-hidden="true"></span>
       </a>
-      <p class="footer__blurb">Family-owned heating and cooling service for Southern Nevada since 2008. Nevada license #0089421 · EPA 608 Universal.</p>
+      <p class="footer__blurb">Family-owned heating and cooling service for Southern Nevada since ${c.yearFounded}. Nevada license #${e(c.licenseNumber)} · EPA 608 Universal.</p>
     </div>
     <div>
       <h3>Contact</h3>
       <ul role="list">
-        <li><a href="tel:+17025550142">(702) 555-0142</a></li>
-        <li><a href="mailto:dispatch@superhvac.com">dispatch@superhvac.com</a></li>
-        <li>4120 W Sunset Rd, Suite 12<br />Las Vegas, NV 89118</li>
+        <li><a href="tel:${e(c.phone.raw)}">${e(c.phone.display)}</a></li>
+        <li><a href="mailto:${e(c.email)}">${e(c.email)}</a></li>
+        <li>${e(c.address)}<br />${e(c.city)}, ${e(c.state)} ${e(c.zip)}</li>
       </ul>
     </div>
     <div>
       <h3>Services</h3>
       <ul role="list">
-        <li><a href="/services#services">Emergency AC repair</a></li>
-        <li><a href="/services#services">System replacement</a></li>
+        <li><a href="/services#services">${e(c.services[0].name)}</a></li>
+        <li><a href="/services#services">${e(c.services[1].name)}</a></li>
         <li><a href="/services#pricing">Super Club maintenance</a></li>
         <li><a href="/services#services">Ductwork &amp; air quality</a></li>
       </ul>
@@ -408,23 +413,25 @@
     <div>
       <h3>Hours</h3>
       <ul role="list">
-        <li>Emergency dispatch: 24 / 7 / 365</li>
-        <li>Office: Mon–Sat, 7a–7p</li>
-        <li>Installs: 7 days a week</li>
+        <li>Emergency dispatch: ${e(c.hours.emergency)}</li>
+        <li>Office: ${e(c.hours.weekday)}</li>
+        <li>Installs: ${e(c.hours.weekend)}</li>
       </ul>
     </div>
   </div>
   <div class="wrap footer__bar">
-    <p>© 2026 Super HVAC LLC. All rights reserved.</p>
+    <p>© 2026 ${e(c.legalName)}. All rights reserved.</p>
     <p>Illustrative demonstration site — phone, address, and pricing are sample content.</p>
   </div>
 </footer>
 
-<a class="callfab" href="tel:+17025550142" aria-label="Call Super HVAC 24/7">
+<a class="callfab" href="tel:${e(c.emergencyPhone.raw)}" aria-label="Call ${e(c.businessName)} 24/7">
   <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
   <span>Call now</span>
 </a>
 
+${clientConfigScript()}
 <script src="script.js"></script>
 </body>
-</html>
+</html>`
+}

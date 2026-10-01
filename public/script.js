@@ -114,11 +114,12 @@
 
   /* ---------- triage widget ---------- */
   (function triage() {
+    const city = (window.siteConfig && window.siteConfig.city) || 'Las Vegas';
     const DATA = {
       warm: {
         urgency: 'Urgent — same-day visit', level: 'high',
         title: 'Low refrigerant or a failing compressor',
-        body: "Warm air with the fan still running means the outdoor unit isn't rejecting heat. In Las Vegas the usual causes are a refrigerant leak, a burnt run capacitor, or a compressor that no longer starts under load.",
+        body: "Warm air with the fan still running means the outdoor unit isn't rejecting heat. In " + city + " the usual causes are a refrigerant leak, a burnt run capacitor, or a compressor that no longer starts under load.",
         steps: ['Set the thermostat to OFF so the blower stops freezing the coil', 'Check whether the outdoor fan is spinning — if not, say so when you call', 'Look for ice on the copper line at the indoor unit', "Don't add refrigerant yourself; a leak will just take it again"],
         price: '$189 – $460'
       },
@@ -276,8 +277,26 @@
     const thermo = document.querySelector('.thermo');
     const thermoFill = document.getElementById('thermoFill');
 
+    // Resolves a CSS color (including var() and relative oklch) to sRGB via a 1px canvas.
+    function cssColorToRgb(value, fallback) {
+      try {
+        const probe = document.createElement('span');
+        probe.style.color = value;
+        document.body.appendChild(probe);
+        const resolved = getComputedStyle(probe).color;
+        probe.remove();
+        const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+        ctx.fillStyle = resolved;
+        ctx.fillRect(0, 0, 1, 1);
+        const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+        return [r, g, b];
+      } catch (_) {
+        return fallback;
+      }
+    }
+
     // mercury ramp: cool blue -> green -> amber -> hot orange
-    const RAMP = [[0, [47, 143, 255]], [0.38, [53, 208, 127]], [0.72, [255, 196, 77]], [1, [255, 122, 69]]];
+    const RAMP = [[0, cssColorToRgb('var(--color-thermo-cool)', [47, 143, 255])], [0.38, [53, 208, 127]], [0.72, [255, 196, 77]], [1, [255, 122, 69]]];
     function thermoColor(p) {
       for (let i = 1; i < RAMP.length; i++) {
         if (p <= RAMP[i][0] || i === RAMP.length - 1) {
