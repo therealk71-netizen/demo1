@@ -1,11 +1,17 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { siteConfig } from '@/site-config'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: siteConfig.seo.title,
+  description: siteConfig.seo.description,
   generator: 'v0.app',
+  openGraph: {
+    title: siteConfig.seo.title,
+    description: siteConfig.seo.ogDescription,
+    images: [siteConfig.seo.ogImage],
+  },
   icons: {
     icon: [
       {
